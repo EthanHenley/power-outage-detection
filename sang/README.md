@@ -9,6 +9,7 @@
     [Geopandas Visualizations](#Geopandas-Visualizations)
 - [Conclusion](#Conclusion)
 - [Recommendation](#Recommendation)
+- [Data Dictionary](#Data-Dictionary)
 - [Datasets](#Datasets)
 ---
 ### Problem Statement
@@ -28,7 +29,7 @@ We narrowed our search query to scan for all tweets within *x* distance in all c
 
 #### Word2Vec
 
-Word2vec returns the cosine similarity of words based on *data* so that we can feed the results on a decision tree model to provide us an insight.  We were able to successfully create and segregate words based on their correlation to another relating to a power outage.
+Word2vec returns the cosine similarity of words based on *data* so that we can feed the results on a decision tree model to provide us an insight.  We were able to successfully create and segregate words based on their correlation to another relating to a power outage.  We then classified the words as **here**if they are pro-outage or **here** if they are anti-outage based on the cosine similarity.  
 
 #### Decision Tree Model
 
@@ -41,6 +42,27 @@ Word2vec returns the cosine similarity of words based on *data* so that we can f
 ### Recommendation
 
 "weak learner" do we add boosting to improve it?
+
+### Data Dictionary
+
+|Feature|Type|Dataset|Description|
+|---|---|---|---|
+|Area Affected|object|washington_outages|The name of the county in WA with a power-outage | 
+|index|int64|washington_outages|A number to reference a specific outage occurence (identical index number for same outage even if occurred simultaneously in different counties)| 
+|Year|int64|washington_outages|The year of the power outage occurrence| 
+|Month|int64|washington_outages|The month of the power outage occurrence| 
+|Event Date and Time|object|washington_outages|The date and time of the power outage occurence (yyyy-mm-dd)| 
+|Restoration Date and Time|object|washington_outages|The date and time of when the power is restored (yyyy-mm-dd)| 
+|Duration|object|washington_outages|The duration of the power outage occurence | 
+|Utility/Power Pool|object|washington_outages|The name of the utility provider for the service area of power outage| 
+|NERC Region|object|washington_outages|The region name of the service area of the power outage specified by The North American Electric Reliability Corporation|
+|Type of Disturbances|object|washington_outages|An explanation of what is causing the power outage| 
+|Loss (megawatts)|object|washington_outages|The amount of electric generating capacity loss during the power outage| 
+|Number of Customers Affected|object|washington_outages|The estimated number of customers affected by the power outage| 
+|event_row|int64|washington_outage_tweets|**filtered value**| 
+|timestamp|object|washington_outage_tweets|The date and time of when the tweet text went live| 
+|text|object|washington_outage_tweets|The content of the tweet | 
+|outage|int64|washington_outage_tweets|**filtered value**| 
 
 ### Datasets
 
