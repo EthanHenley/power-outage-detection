@@ -1,4 +1,6 @@
-# Project 5 : Client Project
+# Project 5 : Using Twitter to Identify Counties with Power Outages
+by Sang Cheon, Ethan Henley, Jason Morman
+prepared for New Light Technologies
 
 ### Table of Contents:
 - [Problem Statement](#Problem-Statement)
@@ -14,7 +16,7 @@
 ---
 ### Problem Statement
 
-In the event of a blackout, residential areas often experience prolonged power outages.  Throughout the past, utility companies mapped power outages based on live feeds and data from major energy entities in order to pick up power outages in an area to investigate.  In order to help utility companies identify neighborhoods of prolonged power outages, we wanted to come up with a decision tree model that can accurately determine whether a live social media (twitter) data can be used to obtain information regarding an ongoing power outage based on historical data.  
+An emergency response organization or public utility company will, from time to time, have to deal with power outages on varying scales, and may want to directly scan Twitter to see if people in a certain locality are tweeting about outages that need to be resolved. We have developed a proof of concept for this task, focused on the 39 counties of the state of Washington: a two-part model that, given a tweet, can with ~89% accuracy predict if the tweet represents a legitimate power outage. A user could run this model on a live feed of tweets to determine which represent real power outages, then go attend to those outages.
 
 
 ### Executive Summary
@@ -25,11 +27,14 @@ In order for any analysis, we first needed to determine what data we will be usi
 
 **One of the issues with using a twitterscraper instead of a twitterapi was that we are not able to obtain geolocation of tweets which brings up limitations on accurately determining locations of live tweets.**
 
-We narrowed our search query to scan for all tweets within *x* distance in all counties in the state of Washington within a 1 day range of different power outage restoration date & time period.  During our query, we specifically excluded results that are associated with "Washington DC", "D.C", "District of Columbia" to remove any unrelated query results that may affect our train data. 
+**Twitter Api only goes back 7 days in history and cuts tweets off at 140 characters (current maximum (2020) : 280 char)**
+
+We narrowed our search query to scan for all tweets within *x* distance in all counties in the state of Washington within a 1 day range of different power outage restoration date & time period using key words "blackout OR power OR outage" and blank query.  During our query, we specifically excluded results that are associated with "Washington DC", "D.C", "District of Columbia" to remove any unrelated query results that may affect our train data.  As a result, we were able to collect 230 tweets that fit the keywords criteria and "2000" tweets for the blank query criteria (tweets not believed to be outage-related).
+
 
 #### Word2Vec
 
-Word2vec returns the cosine similarity of words based on *data* so that we can feed the results on a decision tree model to provide us an insight.  We were able to successfully create and segregate words based on their correlation to another relating to a power outage.  We then classified the words as **here**if they are pro-outage or **here** if they are anti-outage based on the cosine similarity.  
+After the tweets corpus was formed, we were able to input our result tweet corpus into word2vec.  Word2vec returns the cosine similarity of words based on the *wikipedia? corpus?*.  Similar documents that are far apart due to document size can still be aligned closely together so that we can feed the results on a decision tree model to provide us an insight.  
 
 #### Decision Tree Model
 
@@ -38,8 +43,11 @@ Word2vec returns the cosine similarity of words based on *data* so that we can f
 
 ### Conclusion
 
+Our results from the decision tree stump indicated that our model's cosine similarity cutoff for our data was about 0.277.  With this cutoff, we are able to predict whether a tweet is outage related with 89% accuracy.  However, due to the sheer number of tweets that are queried that fits our model, we are able to rationalize that people don't particularly tweet much often about power outages.  
 
 ### Recommendation
+
+With proper funding and resources, this model can be better utilized by any agency looking to determine if live-read tweets were related to power outages.  This could potentially improve the model's performance not only particularly to the state of Washington but to all other states or internationally as long as the region is an active tweet user-base region.
 
 "weak learner" do we add boosting to improve it?
 
@@ -70,8 +78,12 @@ Word2vec returns the cosine similarity of words based on *data* so that we can f
 - [Washington Outage Tweets](./dataset/washington_outage_tweets.csv)
 - [Combined EIA Data](./dataset/combined_data.csv)
 
-Sources : https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_b_1
+Sources : 
 
-
+https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_b_1
+https://github.com/taspinar/twitterscraper        
+https://github.com/topojson/topojson
+https://github.com/alexandres/lexvec
+https://twitter.com/
 
 
