@@ -94,24 +94,6 @@ Governments, emergency response agencies, and utilities already have tools at th
 |outage|int64|wa_tweets|1 for tweets about known major county-level outages, 0 for tweets not believed outage-related, -1 for unknown.| 
 
 ---
-## Libraries Used
-
-- numpy
-- time
-- datetime
-- pandas
-- shapely
-- geopandas
-- re
-- nltk
-- gensim
-- sklearn
-- imageio
-- twitterscraper
-- matplotlib
-- seaborn
-
----
 
 ## Sources
 - [EIA](https://www.eia.gov/electricity/monthly/) February Reports Table B1, 2012-2019
